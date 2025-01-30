@@ -27,25 +27,21 @@ const db = mysql.createPool({
     queueLimit: 0,
 });
 */
-db.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+
   var sql = " CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL UNIQUE,password VARCHAR(255) NOT NULL,profile_image VARCHAR(255) NOT NULL);";
   db.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Table created");
   });
-});
 
-db.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+
+
   var sql = "CREATE TABLE measurements (id INT AUTO_INCREMENT PRIMARY KEY,user_id INT NOT NULL,local VARCHAR(255) NOT NULL, initial_mass FLOAT NOT NULL, final_mass FLOAT NOT NULL,image VARCHAR(255),created_at DATETIME NOT NULL,FOREIGN KEY (user_id) REFERENCES users(id));";
   db.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Table created");
   });
-});
+
 
 
 
