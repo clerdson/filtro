@@ -110,26 +110,18 @@ app.post('/register', upload.single('profileImage'), async (req, res) => {
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-            await conn.execute(`
-                    CREATE TABLE IF NOT EXISTS users (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        name VARCHAR(100) NOT NULL,
-                        email VARCHAR(100) NOT NULL UNIQUE,
-                        password VARCHAR(255) NOT NULL,
-                        profile_image VARCHAR(255) NOT NULL
-                    )
-                `);
+
         await db.execute(
             'INSERT INTO users (name, email, password, profile_image) VALUES (?, ?, ?, ?)',
             [name, email, hashedPassword, profileImage]
         );
         res.status(201).json({ message: 'Usuário registrado com sucesso!' });
     } catch (error) {
-        if (error.code === 'ER_DUP_ENTRY') {
-            res.status(400).json({ message: 'Email já está em uso!' });
-        } else {
-            res.status(500).json({ message: 'Erro ao registrar usuário!', error });
-        }
+        console.error('Erro ao registrar usuário:', error);
+           res.status(500).json({
+               message: 'Erro ao registrar usuário!',
+               error: error.message || error
+           });
     }
 });
 
@@ -188,18 +180,7 @@ app.post('/measurements', verifyJWT, upload.single('image'), async (req, res) =>
 
     try {
         const createdAt = new Date();
-          await conn.execute(`
-                    CREATE TABLE IF NOT EXISTS measurements (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        user_id INT NOT NULL,
-                        local VARCHAR(255) NOT NULL,
-                        initial_mass FLOAT NOT NULL,
-                        final_mass FLOAT NOT NULL,
-                        image VARCHAR(255),
-                        created_at DATETIME NOT NULL,
-                        FOREIGN KEY (user_id) REFERENCES users(id)
-                    )
-                `);
+
         await db.execute(
             'INSERT INTO measurements (user_id, local, initial_mass, final_mass, image, created_at) VALUES (?, ?, ?, ?, ?, ?)',
             [req.userId, local, initial_mass, final_mass, imagePath, createdAt]
