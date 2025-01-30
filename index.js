@@ -78,10 +78,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Rota principal
-app.get('/', (req, res) => {
-    res.json({ message: 'ok' });
-});
+
 
 // Middleware para autenticação JWT
 function verifyJWT(req, res, next) {
