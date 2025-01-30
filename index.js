@@ -21,7 +21,7 @@ const db = mysql.createPool({
     host: 'mysql.railway.internal',
     user: 'root',
     password: 'ByIRUVnxnLJTKDMJqfWOBlHHkPrVFara',
-    database: 'auth_db',
+    database: 'railway',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
