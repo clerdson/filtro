@@ -64,6 +64,7 @@ createTables();
 
 // Servir arquivos estáticos da pasta uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // Configuração do multer para upload de imagens
 const storage = multer.diskStorage({
