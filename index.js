@@ -14,8 +14,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-
-
+const db = mysql.createConnection('mysql://root:ByIRUVnxnLJTKDMJqfWOBlHHkPrVFara@roundhouse.proxy.rlwy.net:26335/railway')
+/*
 // Conexão com o banco de dados
 const db = mysql.createPool({
     host: 'mysql.railway.internal',
@@ -26,7 +26,7 @@ const db = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
 });
-
+*/
 db.getConnection()
   .then(() => console.log('Conexão com o banco de dados estabelecida!'))
   .catch((err) => console.error('Erro ao conectar ao banco de dados:', err));
