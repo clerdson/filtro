@@ -18,9 +18,9 @@ app.use(bodyParser.json());
 
 // Conexão com o banco de dados
 const db = mysql.createPool({
-    host: 'db',
+    host: 'mysql.railway.internal',
     user: 'root',
-    password: 'root',
+    password: 'ByIRUVnxnLJTKDMJqfWOBlHHkPrVFara',
     database: 'auth_db',
     waitForConnections: true,
     connectionLimit: 10,
