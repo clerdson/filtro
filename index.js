@@ -14,13 +14,16 @@ app.use(bodyParser.json());
 // Criando pool de conexão com MySQL
 const db = mysql.createPool({
     host: 'roundhouse.proxy.rlwy.net',
+    port: 26335,
     user: 'root',
     password: 'ByIRUVnxnLJTKDMJqfWOBlHHkPrVFara',
     database: 'railway',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
+    connectTimeout: 60000 // 60 segundos
 });
+
 
 // Criando as tabelas após a conexão ser estabelecida
 async function createTables() {
